@@ -2,8 +2,8 @@ language: python
 python:
   - "3.8"
 
-  services:
-    - docker
+services:
+  - docker
   
 before_script: pip install docker-compose
 
