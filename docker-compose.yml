@@ -1,0 +1,23 @@
+# https://docs.docker.com/compose/
+#version of docker:
+version: "3"
+#services that we need for our app:
+services:
+    app: #name of our app
+      build:
+        context: . #context . would be in current dir
+      ports:
+          - "8000:8000" #mapping our project in port 8000 of our local host to port 8000 of our image.
+      volumes: #volume allows us to get the updates we make to our project into our docker image in real time
+          - ./app:/app #mapping our app dir to the app dir in docker image
+      command: > #commands we use to run our app in our docker container
+        sh -c "python manage.py runserver 0.0.0.0:8000"
+      
+
+
+# in the end:
+  # use  docker-compose build   to build everything you code.
+
+
+# Creating django project "app" in the currenct directory:
+# docker-compose run app sh -c "django-admin.py start project app ."
