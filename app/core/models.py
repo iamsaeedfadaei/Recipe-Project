@@ -3,17 +3,15 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser,\
                                         PermissionsMixin
 
 
-
 class UserManager(BaseUserManager):
     #password is none because we can have some user without password
-
     def create_user(self, email, password=None, **extra_fields):
         """creating and saving new user"""
         if not email:
             raise ValueError('Users must have an Email Address!')
-        user = self.model(email=self.normalize_email(email), **extra_fields)
-        user.set_password(password) # we use this function because passowrd is encrypted and cant be like email.
-        user.save(using=self._db) #we use using for maybe we use multiple db.
+        user = self.model(email = self.normalize_email(email), **extra_fields)
+        user.set_password(password)    # we use this function because passowrd is encrypted and cant be like email.
+        user.save(using = self._db)      #we use using for maybe we use multiple db.
         
         return user
 
