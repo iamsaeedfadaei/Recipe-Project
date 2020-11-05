@@ -20,7 +20,7 @@ class AdminSiteTests(TestCase):
 
     def test_users_listed(self):
         """ testing that users are listed in user page."""
-        url = reverse('admin:core_user_changelist')
+        url = reverse('admin:core_user_changelist') #this urls are django admin documentaion
         res = self.client.get(url)
 
         self.assertContains(res, self.user.name)
