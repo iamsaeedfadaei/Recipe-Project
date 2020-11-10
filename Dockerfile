@@ -9,8 +9,11 @@ ENV PYTHONUNBUFFERED 1
 
 # setting our requirements to docker:
 COPY ./requirements.txt /requirements.txt
+RUN apk add --update --no-cache postgresql-client
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+        gcc libc-dev linux-headers postgresql-dev
 RUN pip install -r /requirements.txt
-
+RUN apk del .tmp-build-deps
 # make directories for saving apps in docker and copy from local files:
 RUN mkdir /app
 WORKDIR /app
