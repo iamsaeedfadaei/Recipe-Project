@@ -18,15 +18,22 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """ 
-        creating user witj encrypted password and returninh it.
-        validated_data would be everything that would come from user object as JSON format in HTTP POST.
+        creating user with encrypted password and returninh it.
+        validated_data would be everything that would come from user object as JSON format in HTTP POST. actually here would be fields of get_user_model.
         """
         return get_user_model().objects.create_user(**validated_data)
 
 
-
-
-
+    def update(self, instance, validated_data):
+        """ update a user, setting the pasword correctly and return it."""
+        password = validated_data.pop('password', None)  #pop would remove password data and will set it to None for us to replace it to new password.
+        user = super().update(instance, validated_data)  # im not sure but i think super will call defaut function on itself.
+        
+        if password:
+            user.set_password(password)
+            user.save()
+        
+        return user
 
 
 class AuthTokenSerializer(serializers.Serializer):
