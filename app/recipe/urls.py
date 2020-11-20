@@ -6,6 +6,7 @@ from recipe import views
 router = DefaultRouter()  #default router is a django tool that automatically generate urls for our router!
 router.register('tags', views.TagViewSet)
 router.register('ingredients', views.IngredientViewSet)
+router.register('recipe', views.RecipeViewSet)
 
 app_name = 'recipe'  #for reverse url in tests
 
